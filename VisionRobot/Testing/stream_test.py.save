@@ -6,8 +6,8 @@ import sys
 import os
 import picamera #imports picamera
 import time #imports the delay funtion
-"""
 import pygame
+
 pygame.init()
 
 size = [500,700]
@@ -18,7 +18,7 @@ pygame.display.set_caption("My Game")
 done = False
 
 pygame.joystick.init()
-"""
+
 #allows for the controls to be displayed on screen
 def print_menu():
 	print
@@ -33,8 +33,9 @@ def takephoto():
 	camera = picamera.PiCamera()
 	camera.capture('image.jpg')
 	camera.close() # closes the camera so that the stream can be reopend 
-
 print_menu()
+
+
 while True:
 	print("\nCmd:",end="")
 	inp=input()
@@ -44,7 +45,7 @@ while True:
 		takephoto()
 	elif inp=='?':
 		print_menu()
-"""	
+	
 while done==False:
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
@@ -54,8 +55,6 @@ while done==False:
 		joystick = pygame.joystick.Joystick(i)
 		joystick.init()
 
-	if joystick.get_button(0)==True:
+	if joystick.get_button(11)==True:
 		takephoto()
-	if joystick.get_button(3)==True:
-		os.system('./raspberry_pi_camera_streamer')
-"""
+	
