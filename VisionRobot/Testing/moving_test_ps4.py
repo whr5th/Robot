@@ -26,7 +26,24 @@ def print_menu():
 	print("  Type 'g' to set servo back home")
 	print("  Type '?' to reprint menu")
 
-#print_menu() #prints the menu at the start of the program
+def print_ps4Menu():
+	print
+	print("  Controls")
+	print
+	print("  Left Joystick to dive motors")
+	print("  Right Joystick to control servo")
+	print("  Press square to take photo")
+	
+def take_photo():
+	camera = picamera.PiCamera()
+	camera.capture('image.jpg')
+	camera.close()
+	print("    You just took a photo")
+def set_servo():
+	servo(90)
+	time.sleep(.1)
+	disable_servo()
+	print("90")
 
 pygame.init()
 # Set the width and height of the screen [width,height]
@@ -44,6 +61,8 @@ clock = pygame.time.Clock()
 pygame.joystick.init()
 current_pos=90
 
+print_ps4Menu()
+set_servo()
 while done==False:
         for event in pygame.event.get(): # User did something
                 if event.type == pygame.QUIT: # If user clicked close
@@ -52,7 +71,7 @@ while done==False:
         for i in range(joystick_count):
                 joystick = pygame.joystick.Joystick(i)
                 joystick.init()
-        
+       
 	if joystick.get_axis(1)==-1: #forward
 		fwd()
 	elif joystick.get_axis(0)==-1:
@@ -70,17 +89,37 @@ while done==False:
 		decrease_speed()
 	
 	if joystick.get_button(11)==True:
-		servo(90)
-		time.sleep(.1)
-		disable_servo()
-	
+		set_servo()
 	if joystick.get_axis(5)==-1:
 		current_pos += 5
 		servo(current_pos)
 		time.sleep(.1)
 		disable_servo()
+		print(current_pos)
+
 	elif joystick.get_axis(5)>=.8:
 		current_pos -= 5
 		servo(current_pos)
 		time.sleep(.1)
 		disable_servo()
+		print(current_pos)
+
+	if joystick.get_button(0)==True:
+		take_photo()
+
+	if current_pos in range(175,180):
+		if current_pos >=180:
+			current_pos -= 5
+			servo(current_pos)
+			time.sleep(.1)
+			disable_servo()
+	if current_pos in range(0,5):
+		if current_pos <=0:
+			current_pos += 5
+			servo(current_pos)
+			time.sleep(.1)
+			disable_servo()
+
+
+	disable_servo()
+	
