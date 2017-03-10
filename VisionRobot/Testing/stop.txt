@@ -1,0 +1,14 @@
++++ readlink -f /home/pi/Henry/VisionRobot/Testing/apache/stop.sh
+++ dirname /home/pi/Henry/VisionRobot/Testing/apache/stop.sh
++ cd /home/pi/Henry/VisionRobot/Testing/apache
++ source ./config.txt
+++ rpicamdir=html
+++ webserver=apache
+++ webport=80
+++ user=
+++ webpasswd=
+++ autostart=no
++ fn_stop
++ sudo killall raspimjpeg
++ sudo killall php
++ sudo killall motion

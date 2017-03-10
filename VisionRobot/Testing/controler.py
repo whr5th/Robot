@@ -63,6 +63,8 @@ current_pos=90
 
 print_ps4Menu()
 set_servo()
+os.system('/home/pi/Henry/VisionRobot/Testing/apache/stop.sh')
+
 while done==False:
         for event in pygame.event.get(): # User did something
                 if event.type == pygame.QUIT: # If user clicked close
@@ -107,6 +109,15 @@ while done==False:
 	if joystick.get_button(0)==True:
 		take_photo()
 
+	if joystick.get_button(1)==True:
+		print("   Before")
+		os.system('/home/pi/Henry/VisionRobot/Testing/apache/start.sh')
+		print("   Stream started")
+	if joystick.get_button(2)==True:
+		print("   Before")
+		os.system('/home/pi/Henry/VisionRobot/Testing/apache/stop.sh')
+		print("   Stream started")
+
 	if current_pos in range(175,180):
 		if current_pos >=180:
 			current_pos -= 5
@@ -119,7 +130,7 @@ while done==False:
 			servo(current_pos)
 			time.sleep(.1)
 			disable_servo()
-
-
+	
+	
 	disable_servo()
 	
